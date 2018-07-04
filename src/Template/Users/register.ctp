@@ -1,3 +1,5 @@
+<?php $this->assign('title', __('Register')); ?>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="outer-content-section">
     <div class="row">
         <div class="col-lg-12"><h1 class="outer-page-heading">Create Account</h1></div>
@@ -20,6 +22,12 @@
     <div class="row">
         <div class="col-sm-5 mb-20">
             <?= $this->Form->control('confirm_password',['type'=>'password','class'=>'form-control f-input', 'label'=>false, 'placeholder'=>'Confirm Password']); ?>
+        </div>
+        <div class="col-sm-7">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-sm-5 mb-20">
+            <div class="g-recaptcha" data-sitekey="<?= $googleRecatpcha['site_key'] ?>"></div>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>

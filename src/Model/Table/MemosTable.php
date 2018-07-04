@@ -39,38 +39,11 @@ class MemosTable extends Table {
         $this->setPrimaryKey('id');
         
         $this->addBehavior('Timestamp');
-        
-        /*$this->addBehavior('Josegonzalez/Upload.Upload', [
-            'file' => [
-                'nameCallback' => function ($data, $settings) {
-                    $parts = pathinfo($data['name']);
-                    return strtolower(preg_replace('/[^A-Za-z0-9\-]/', '', $parts['filename']) . '-' . uniqid() . '.' . $parts['extension']);
-                },
-                'restoreValueOnFailure' => false,
-                'transformer' =>  function ($table, $entity, $data, $field, $settings) {
-                    $extension = pathinfo($data['name'], PATHINFO_EXTENSION);
-                
-                    // Store the thumbnail in a temporary file
-                    $tmp = tempnam(sys_get_temp_dir(), 'upload') . '.' . $extension;
-                    
-                    // Use the Imagine library to DO THE THING
-                    $size = new \Imagine\Image\Box(200, 200);
-                    $mode = \Imagine\Image\ImageInterface::THUMBNAIL_INSET;
-                    $imagine = new \Imagine\Gd\Imagine();
-                
-                    // Save that modified file to our temp file
-                    $imagine->open($data['tmp_name'])
-                        ->thumbnail($size, $mode)
-                        ->save($tmp);
-                
-                    // Now return the original *and* the thumbnail
-                    return [
-                        $data['tmp_name'] => $data['name'],
-                        $tmp => 'thumbnail-' . $data['name'],
-                    ];
-                },
-            ]
-        ]);*/
+    
+    
+        $this->addBehavior('CounterCache', [
+            'Users' => ['memo_count']
+        ]);
         
         
         $this->belongsTo('Users', [

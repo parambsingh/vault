@@ -1,3 +1,4 @@
+<?php $this->assign('title', __('Dashboard')); ?>
 <div class="row">
     <?php foreach ($memos
     

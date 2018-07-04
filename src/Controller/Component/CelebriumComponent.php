@@ -31,14 +31,18 @@ class CelebriumComponent extends Component {
         curl_setopt($ch, CURLOPT_DNS_CACHE_TIMEOUT, 2);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         
+        $error = false;
         if (!$resultFromAPI = curl_exec($ch)) {
             $resultFromAPI = curl_error($ch);
+            $error = true;
         }
         
         curl_close($ch);
         $tmp = json_decode($resultFromAPI, true);
         
-        return $this->fetchTemplate($cc['sn'], $tmp['message']);
+        $tmp['error'] = $error;
+        
+        return ($error) ? $tmp : $this->fetchTemplate($cc['sn'], $tmp['message']);
         
     }
     
@@ -64,7 +68,11 @@ class CelebriumComponent extends Component {
         
         curl_close($ch);
         
-        return ($error) ? $resultFromAPI : json_decode($resultFromAPI, true);
+        $response = ($error) ? $resultFromAPI : json_decode($resultFromAPI, true);
+        
+        $response['error'] = $error;
+        
+        return $response;
         
     }
     
@@ -146,7 +154,7 @@ class CelebriumComponent extends Component {
         
         
         // Set font properties
-        $draw->setFont(WWW_ROOT.'font/RidleyGrotesk-Regular.ttf');
+        $draw->setFont(WWW_ROOT . 'font/RidleyGrotesk-Regular.ttf');
         $draw->setFontSize(11);
         $draw->setFillColor($textColor);
         // Position text at the bottom right of the image
@@ -166,7 +174,7 @@ class CelebriumComponent extends Component {
         $watermark->compositeImage($mask, \Imagick::COMPOSITE_COPYOPACITY, 0, 0);
         
         // Overlay watermark on image
-        $image->compositeImage($watermark,\Imagick::COMPOSITE_DISSOLVE, 0, 0);
+        $image->compositeImage($watermark, \Imagick::COMPOSITE_DISSOLVE, 0, 0);
         
         // Set output image format
         $image->setImageFormat('jpg');
@@ -225,9 +233,8 @@ class CelebriumComponent extends Component {
     }
     
     
-    
     public function verifyMemo($sn, $nn, $serverNo, $an) {
-    
+        
         $queryArr = [
             'nn' => $nn,
             'sn' => $sn,
@@ -236,7 +243,7 @@ class CelebriumComponent extends Component {
             'denomination' => 1
         ];
         
-        $url = "https://raida".$serverNo.".cloudcoin.global/service/detect?" . http_build_query($queryArr);
+        $url = "https://raida" . $serverNo . ".cloudcoin.global/service/detect?" . http_build_query($queryArr);
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

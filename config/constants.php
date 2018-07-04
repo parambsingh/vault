@@ -1,7 +1,7 @@
 <?php
 define('SITE_TITLE', 'Celebrium Web Vault');
-define('SITE_URL', 'http://localhost/webvault');
-define('PROFILE_IMAGE_PATH', '/webvault/files/Users/profile_image/');
+define('SITE_URL', 'http://localhost/vault');
+define('PROFILE_IMAGE_PATH', '/vault/files/Users/profile_image/');
 
 define('LONG_DATE', 'l, F j, Y \a\t g:i a');
 define('SHORT_DATE', 'M j, y  g:i A');
@@ -18,6 +18,7 @@ define('SUPPORT_EMAIL', 'support@webvault.com');
  *
  */
 
+define('ECHO_RAIDA_API','https://bank.celebrium.com/echo.aspx');
 define('BANK_PASSWORD', '2DD4F9C5-22FC-4B5C-A6C7-860EB657F399');
 define('RAIDA_PASSWORD', '5c4a9d7893e04');
 define('CELEB_EXTENSION', '.celebrium');

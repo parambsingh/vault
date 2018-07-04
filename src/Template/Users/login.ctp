@@ -1,3 +1,4 @@
+<?php $this->assign('title', __('Login')); ?>
 <div class="outer-content-section">
     <div class="row">
         <div class="col-lg-12"><h1 class="outer-page-heading">Login</h1></div>

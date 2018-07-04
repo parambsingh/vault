@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -26,9 +27,9 @@ class UsersController extends AppController {
         if (!$this->Auth->user()) {
             return $this->redirect(['action' => 'login']);
         }
-    
+        
         $memosTable = TableRegistry::get('Memos');
-        $memos = $memosTable->find()->where(['Memos.user_id'=>$this->Auth->user('id')])->hydrate(false)->all()->toArray();
+        $memos = $memosTable->find()->where(['Memos.user_id' => $this->Auth->user('id'), 'Memos.exported' => false])->hydrate(false)->all()->toArray();
         $this->set('memos', $memos);
         
     }
@@ -63,6 +64,11 @@ class UsersController extends AppController {
             return $this->redirect($this->Auth->redirectUrl());
         }
         
+        if (!$this->verifyRecatpcha($this->request->data)) {
+            $this->Flash->error(__('Incorrect Captcha.'));
+            return $this->redirect('register');
+        }
+        
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             
@@ -70,18 +76,19 @@ class UsersController extends AppController {
             
             if ($this->Users->save($user)) {
                 
-                //                $options = [
-                //					'template' => 'welcome',
-                //					'to' => $user->email,
-                //					'subject' => _('Welcome to '. SITE_TITLE),
-                //					'viewVars' => [
-                //						'name' => $user->first_name,
-                //						'email' => $user->email
-                //					]
-                //				];
-                //
-                //				$this->loadComponent('EmailManager');
-                //				$this->EmailManager->sendEmail($options);
+                $options = [
+                    'template' => 'welcome',
+                    'to' => $user->email,
+                    'subject' => _('Welcome to ' . SITE_TITLE),
+                    'viewVars' => [
+                        'name' => $user->first_name,
+                        'email' => $user->email
+                    ]
+                ];
+                
+                $this->loadComponent('EmailManager');
+                $this->EmailManager->sendEmail($options);
+                
                 $this->Auth->setUser($user);
                 $this->Flash->success(__('You have successfully registered.'));
                 return $this->redirect($this->Auth->redirectUrl());
@@ -98,7 +105,9 @@ class UsersController extends AppController {
             }
         }
         
-        $this->set(compact('user'));
+        $googleRecatpcha = Configure::read('GoogleRecatpcha');
+        
+        $this->set(compact('user', 'googleRecatpcha'));
     }
     
     public function forgotPassword() {
@@ -326,16 +335,16 @@ class UsersController extends AppController {
     
     public function backupMemos() {
         $memosTable = TableRegistry::get('Memos');
-        $memos = $memosTable->find()->where(['Memos.user_id'=>$this->Auth->user('id')])->hydrate(false)->all()->toArray();
+        $memos = $memosTable->find()->where(['Memos.user_id' => $this->Auth->user('id'), 'Memos.exported' => false])->hydrate(false)->all()->toArray();
         $this->set('memos', $memos);
-    
+        
     }
     
     public function exportMemos() {
         $memosTable = TableRegistry::get('Memos');
-        $memos = $memosTable->find()->where(['Memos.user_id'=>$this->Auth->user('id')])->hydrate(false)->all()->toArray();
+        $memos = $memosTable->find()->where(['Memos.user_id' => $this->Auth->user('id'), 'Memos.exported' => false])->hydrate(false)->all()->toArray();
         $this->set('memos', $memos);
-    
+        
     }
     
     

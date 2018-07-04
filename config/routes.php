@@ -53,6 +53,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Users', 'action' => 'dashboard']);
+    $routes->connect('/backup-memos', ['controller' => 'Users', 'action' => 'backupMemos']);
+    $routes->connect('/export-memos', ['controller' => 'Users', 'action' => 'exportMemos']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

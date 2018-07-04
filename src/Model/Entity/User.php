@@ -40,6 +40,7 @@ class User extends Entity {
         'password' => true,
         'forgot_password_token' => true,
         'active' => true,
+        'memo_count' => true,
         'created' => true,
         'modified' => true
     ];

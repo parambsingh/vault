@@ -52,6 +52,10 @@ class CreateUsers extends AbstractMigration
             'default' => null,
             'null' => false,
         ]);
+        $table->addColumn('memo_count', 'integer', [
+            'default' => 0,
+            'null' => false,
+        ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,
             'null' => false,

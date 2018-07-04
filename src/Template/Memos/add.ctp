@@ -1,3 +1,4 @@
+<?php $this->assign('title', __('Add Memos™')); ?>
 <?php
 echo $this->Html->css(['uploadfile']);
 echo $this->Html->script(['jquery.uploadfile']);

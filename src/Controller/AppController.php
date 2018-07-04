@@ -17,6 +17,8 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\TableRegistry;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -69,10 +71,20 @@ class AppController extends Controller {
         
         if ($this->Auth->user()) {
             $this->set('authUser', $this->Auth->user());
+            $memosTable = TableRegistry::get('Memos');
+            $memo_count = $memosTable->find()->where(['Memos.user_id' => $this->Auth->user('id'), 'Memos.exported' => false])->count();
+            $this->set('memo_count', $memo_count);
+    
+            if(empty($this->Cookie->read('raidaEcho'))){
+                $this->echoRiada();
+            }
+    
+            $this->set('raidaStatus', $this->Cookie->read('raidaEcho'));
         } else {
-            //die('1');
             $this->viewBuilder()->setLayout('login_register');
         }
+        
+        
     }
     
     public function responseFormat() {
@@ -108,5 +120,48 @@ class AppController extends Controller {
     public function getCurrentPage() {
         $this->currentPage = (!empty($this->request->query['page']) && $this->request->query['page'] > 0) ? $this->request->query['page'] : 1;
         return $this->currentPage;
+    }
+    
+    public function verifyRecatpcha($aData) {
+        if (!$aData) {
+            return true;
+        }
+        $recaptcha_secret = Configure::read('GoogleRecatpcha.secret_key');
+        $url = "https://www.google.com/recaptcha/api/siteverify?secret=" . $recaptcha_secret . "&response=" . $aData['g-recaptcha-response'];
+        $response = json_decode(@file_get_contents($url));
+        
+        return ($response->success == true) ? true : false;
+    }
+    
+    public function echoRiada(){
+    
+        $serverStatus = "up";
+        
+        try {
+            //cURL starts
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, ECHO_RAIDA_API);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPGET, true);
+            $result = curl_exec($ch);
+            
+            //error handling for cURL
+            if ($result === false) {
+                $serverStatus = "down";
+            } else {
+                $cc = json_decode($result, true);
+                if ((isset($cc['status']) && in_array($cc['status'], ["fail", "error"]))) {
+                    $serverStatus = "down";
+                }
+            }
+            curl_close($ch);
+        
+        } catch (Exception $e) {
+            //Do SomeThing
+        }
+    
+    
+        $this->Cookie->write('raidaEcho', $serverStatus);
+        
     }
 }

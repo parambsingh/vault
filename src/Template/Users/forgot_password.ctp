@@ -1,3 +1,4 @@
+<?php $this->assign('title', __('Forgot Password')); ?>
 <div class="outer-content-section">
     <div class="row">
         <div class="col-lg-5">
