@@ -6,6 +6,7 @@ echo $this->Html->script(['jquery.uploadfile']);
 
 <br/><br/><br/>
 <div class="row">
+    <div class="col-lg-1"><img src="<?= SITE_URL ?>/img/add-memos.png" alt="RAIDA" title="Add Memos" style="margin-top: 100px;" ></div>
     <div class="col-lg-6">
         <div id="multipleFileUploader" style="display: none"></div>
         <h3 class="add-memo-heading">Select Secure</h3>
@@ -29,7 +30,8 @@ echo $this->Html->script(['jquery.uploadfile']);
     <div class="col-lg-12">&nbsp;</div>
 </div>
 <div class="row">
-    <div class="col-lg-12" style="background: #eebc41; padding: 20px; display: none;">
+ <div class="col-lg-3">&nbsp;</div>
+    <div class="col-lg-9" style="background: #000; padding: 20px; display: none;">
         <h4>Result:</h4>
         <ul id="finalStatus" style="list-style: none">
         </ul>
@@ -44,7 +46,7 @@ echo $this->Html->script(['jquery.uploadfile']);
                 <h5 class="modal-title" id="finalHeading">Please Wait..</h5>
             </div>
             <div class="modal-body">
-                <h3 style="color: #000000;" id="mainLine"> Processing, Please wait...</h3>
+                <h3 id="mainLine"> Processing, Please wait...</h3>
             </div>
         </div>
     </div>

@@ -6,27 +6,27 @@
     
     <?= $this->Form->create(null, ['id' => 'loginForm', 'class' => 'fusion-login-form']) ?>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Email']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'EMAIL']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('password', ['type' => 'password', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Password']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('password', ['type' => 'password', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'PASSWORD']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
+        <div class="col-lg-8">
             <button class="btn btn-lg btn-default outer-btn" title="LOGIN">LOGIN</button>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     
     <div class="row">
-        <div class="col-sm-5 text-center">
+        <div class="col-sm-5 text-left">
             <a title="Don't have an account? Register!" class="outer-a"
                href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'forgot_password']); ?>">Forgot
                 Password?</a>
@@ -36,10 +36,9 @@
     <br />
     
     <div class="row">
-        <div class="col-sm-5 text-center">
+        <div class="col-sm-5">
             <a title="Don't have an account? Register!" class="outer-a"
-               href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']); ?>">Don't have an
-                account? Register!</a>
+               href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'register']); ?>">Don't have an account? Register</a>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>

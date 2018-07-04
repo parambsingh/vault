@@ -56,30 +56,20 @@ class MemosController extends AppController {
         $failed = false;
         $this->loadComponent('ActivityManager');
         $activity['user_id'] = $this->Auth->user('id');
+        $fileUniqueName = uniqid() . MEMO_EXTENSION;
         if ($this->request->is(['patch', 'post', 'put'])) {
             $this->loadComponent('Celebrium');
             $file = $this->request->data['file'];
             $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
             
             if (strtolower($ext) == "celebrium") {
-                //                if ($this->request->session()->read('coin')) {
-                //                    $coin = $this->request->session()->read('coin');
-                //                } else {
                 $coin = $this->Celebrium->readCelebrium($file['tmp_name']);
-                //                    $this->request->session()->write('coin', $coin);
-                //                }
                 
                 $memo = $this->Memos->find('all')->where(['serial_no' => $coin['sn']])->first();
                 
                 if (empty($memo)) {
                     
-                    
-                    //                    if ($this->request->session()->read('template')) {
-                    //                        $template = $this->request->session()->read('template');
-                    //                    } else {
                     $template = $this->Celebrium->getTemplate($coin);
-                    //                        $this->request->session()->write('template', $template);
-                    //                    }
                     
                     if ($template['error']) {
                         
@@ -91,10 +81,9 @@ class MemosController extends AppController {
                         
                     } else {
                         
-                        
                         $memoName = str_replace(CELEB_EXTENSION, MEMO_EXTENSION, $file['name']);
                         $memoRawPath = WWW_ROOT . 'files/raw/' . $memoName;
-                        $memoAbsolutePath = '/files/memos/' . $this->Auth->user('id') . '/' . $memoName;
+                        $memoAbsolutePath = '/files/memos/' . $this->Auth->user('id') . '/';
                         
                         $this->Celebrium->base64ToJpeg($template['jpeg'], $memoRawPath);
                         
@@ -112,7 +101,7 @@ class MemosController extends AppController {
                             mkdir($memoPath, 0777, true);
                         }
                         
-                        $this->Celebrium->binaryDataToJpeg(hex2bin($imageHex), $memoPath . $memoName);
+                        $this->Celebrium->binaryDataToJpeg(hex2bin($imageHex), $memoPath . $fileUniqueName);
                         
                         //unlinking Raw Image
                         unlink($memoRawPath);
@@ -152,13 +141,7 @@ class MemosController extends AppController {
                     }
                     
                     if ($verified) {
-                        
-                        //                        if ($this->request->session()->read('template')) {
-                        //                            $template = $this->request->session()->read('template');
-                        //                        } else {
                         $template = $this->Celebrium->getTemplate($coin);
-                        //                            $this->request->session()->write('template', $template);
-                        //                        }
                         
                         if ($template['error'] || $template['status'] == "error") {
                             $activity['type'] = "Added Memo Failed";
@@ -167,17 +150,15 @@ class MemosController extends AppController {
                             $failed = true;
                         } else {
                             
-                            
                             $memoName = $file['name'];
-                            $memoAbsolutePath = '/files/memos/' . $this->Auth->user('id') . '/' . $memoName;
-                            
-                            $memoPath = WWW_ROOT . 'files/memos/' . $this->Auth->user('id') . '/';
+                            $memoAbsolutePath = 'files/memos/' . $this->Auth->user('id') . '/';
+                            $memoPath = WWW_ROOT . $memoAbsolutePath;
                             
                             if (!file_exists($memoPath)) {
                                 mkdir($memoPath, 0777, true);
                             }
                             
-                            move_uploaded_file($file['tmp_name'], $memoPath . $memoName);
+                            move_uploaded_file($file['tmp_name'], $memoPath . $fileUniqueName);
                             
                             $activity['type'] = "Added Memo";
                             $activity['on'] = $file['name'];
@@ -208,7 +189,7 @@ class MemosController extends AppController {
                     $this->loadComponent('Thumb');
                     
                     $thumbPath = WWW_ROOT . 'files/memos/' . $this->Auth->user('id') . '/thumbs/';
-                    $thumbAbsolutePath = '/files/memos/' . $this->Auth->user('id') . '/thumbs/';
+                    $thumbAbsolutePath = '/files/memos/' . $this->Auth->user('id') . '/thumbs/' . $fileUniqueName;
                     
                     if (!file_exists($thumbPath)) {
                         mkdir($thumbPath, 0777, true);
@@ -217,10 +198,20 @@ class MemosController extends AppController {
                     $options = [
                         'destinationPath' => $thumbPath,
                         'image' => ['type' => "image/jpeg"],
-                        'tmpname' => SITE_URL . $memoAbsolutePath,
-                        'name' => $memoName,
+                        'tmpname' => SITE_URL . $memoAbsolutePath . $fileUniqueName,
+                        'name' => $fileUniqueName,
                         'width' => 300,
                         'argHeight' => 214
+                    ];
+                    $this->Thumb->create($options);
+    
+                    $options = [
+                        'destinationPath' => $thumbPath,
+                        'image' => ['type' => "image/jpeg"],
+                        'tmpname' => SITE_URL . $memoAbsolutePath . $fileUniqueName,
+                        'name' => "large_".$fileUniqueName,
+                        'width' => 900,
+                        'argHeight' => 720
                     ];
                     $this->Thumb->create($options);
                     
@@ -231,8 +222,8 @@ class MemosController extends AppController {
                     $memo->serial_no = $coin['sn'];
                     $memo->name = str_replace(MEMO_EXTENSION, "", $memoName);
                     $memo->user_id = $this->Auth->user('id');
-                    $memo->file = $memoAbsolutePath;
-                    $memo->thumb = $thumbAbsolutePath . $memoName;
+                    $memo->file = "/" . $memoAbsolutePath . $fileUniqueName;
+                    $memo->thumb = "/" . $thumbAbsolutePath . $fileUniqueName;
                     $memo->celebrium_file = '';
                     $memo->celebrium_json = json_encode($coin);
                     $memo->meta_json = json_encode($template['meta']);
@@ -247,9 +238,9 @@ class MemosController extends AppController {
                     $this->responseMessage = __('<b>' . $file['name'] . '</b> - is not a verified Memo, please try some another Memo');
                 }
             } else {
-                $this->responseMessage = __('<b>' . $file['name'] . '</b> - Memo has already pown');
+                $this->responseMessage = __('<b>' . $file['name'] . '</b> - Memo already exist in your account.');
             }
-    
+            
             $this->ActivityManager->create($activity);
             
         } else {
@@ -259,18 +250,18 @@ class MemosController extends AppController {
         echo $this->responseFormat();
     }
     
-    public function addBackup($serialNo){
+    public function addBackup($serialNo) {
         $this->autoRender = false;
         $this->request->session()->write('backupMemo', $serialNo);
         exit;
     }
     
-    public function backup(){
+    public function backup() {
         $serialNo = $this->request->session()->read('backupMemo');
         $memo = $this->Memos->find('all')->where(['serial_no' => $serialNo])->first();
         
-        $fileContent = @file_get_contents(WWW_ROOT.ltrim($memo->file, '/'));
-    
+        $fileContent = @file_get_contents(WWW_ROOT . ltrim($memo->file, '/'));
+        
         $activity['type'] = "Memo Backed up";
         $activity['on'] = $memo->name;
         $activity['status'] = 'Success';
@@ -286,24 +277,24 @@ class MemosController extends AppController {
         header("Content-Transfer-Encoding: binary");
         header('Content-Disposition: attachment; filename=' . basename($memo->file));
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-length: ' . filesize(WWW_ROOT.ltrim($memo->file)));
-    
+        header('Content-length: ' . filesize(WWW_ROOT . ltrim($memo->file)));
+        
         echo $fileContent;
         
     }
     
-    public function addExport($serialNo){
+    public function addExport($serialNo) {
         $this->autoRender = false;
         $this->request->session()->write('backupMemo', $serialNo);
         exit;
     }
     
-    public function export(){
+    public function export() {
         $serialNo = $this->request->session()->read('backupMemo');
         $memo = $this->Memos->find('all')->where(['serial_no' => $serialNo])->first();
         
-        $fileContent = @file_get_contents(WWW_ROOT.ltrim($memo->file, '/'));
-    
+        $fileContent = @file_get_contents(WWW_ROOT . ltrim($memo->file, '/'));
+        
         $memo->exported = true;
         
         $this->Memos->save($memo);
@@ -323,7 +314,7 @@ class MemosController extends AppController {
         header("Content-Transfer-Encoding: binary");
         header('Content-Disposition: attachment; filename=' . basename($memo->file));
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Content-length: ' . filesize(WWW_ROOT.ltrim($memo->file)));
+        header('Content-length: ' . filesize(WWW_ROOT . ltrim($memo->file)));
         
         echo $fileContent;
         

@@ -3,25 +3,24 @@
     <div class="row">
         <div class="col-lg-5">
             <h1 class="outer-page-heading">Forgot Password</h1>
-            <p class="main-instruction" style="color: #ffffff">Enter your email address that you used to register. We'll
-                send you an email with a link to reset your password.</p>
+            <p class="main-instruction" style="color: #ffffff">Registered Email Address</p>
         </div>
     </div>
     <?= $this->Form->create(null, ['id' => 'forgotPasswordForm', 'class' => 'fusion-login-form']) ?>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Email']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'EMAIL']); ?>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
+        <div class="col-lg-8" style="margin-top:10px;">
             <button class="btn btn-lg btn-default outer-btn" title="Submit" id="resetPasswordBtn"><span
-                    class="fusion-button-text">Reset Password</span></button>
+                    class="fusion-button-text">RESET PASSWORD</span></button>
             <div class="col-sm-7">&nbsp;</div>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-5 text-center">
+        <div class="col-sm-5">
             <a title="Login" href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']); ?>">Login</a>
         </div>
         <div class="col-sm-7">&nbsp;</div>

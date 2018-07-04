@@ -1,20 +1,33 @@
 <?php $this->assign('title', __('Export Memos™')); ?>
-<h2>Export Memos™</h2>
 <div class="row">
-    <?php foreach ($memos as $index => $memo) { ?>
-    
-    <div class="col-sm-3 memo-img export-popup" id="export_<?= $memo['serial_no'] ?>" data-name="<?= $memo['name'] ?>">
-        <img src="<?= SITE_URL . $memo['thumb'] ?>" width="300" height="214">
-        <div class="mouse-over-box text-center ">
-            <img src="<?= SITE_URL ?>/img/collect_memo.png">
-        </div>
+    <div class="col-lg-1"><img src="<?= SITE_URL ?>/img/archive.png" alt="RAIDA" title="Add Memos"
+                               style="margin-top: 100px;"></div>
+    <div class="col-lg-11">
+        <h2>Export Memos™</h2>
+        <?php if (count($memos) > 0) { ?>
+            <div class="row">
+            <?php foreach ($memos
+            
+                           as $index => $memo) { ?>
+                
+                <div class="col-sm-3 memo-img export-popup" id="export_<?= $memo['serial_no'] ?>"
+                     data-name="<?= $memo['name'] ?>">
+                    <img src="<?= SITE_URL . $memo['thumb'] ?>" width="300" height="214">
+                    <div class="mouse-over-box text-center ">
+                        <img src="<?= SITE_URL ?>/img/collect_memo.png">
+                    </div>
+                </div>
+                <?php if (($index + 1) % 4 === 0) { ?>
+                    </div>
+                    <br/>
+                    <div class="row">
+                <?php } ?>
+            <?php } ?>
+            </div>
+        <?php } else { ?>
+            <h3>No Record Found</h3>
+        <?php } ?>
     </div>
-    <?php if (($index +1) % 4 === 0) { ?>
-</div>
-<br />
-<div class="row">
-    <?php } ?>
-    <?php } ?>
 </div>
 
 <div class="modal fade" id="exportMemo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -42,7 +55,6 @@
     </div>
 </div>
 
-</a>
 
 <script>
     $(function () {
@@ -64,7 +76,7 @@
         $('#exportBtn').click(function () {
             $('#mainLine, #mainFooter').hide();
             $('#thanksLine').fadeIn();
-            $('#export_'+id).fadeIn().remove();
+            $('#export_' + id).fadeIn().remove();
         });
     });
 

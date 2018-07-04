@@ -7,42 +7,41 @@
     
     <?= $this->Form->create($user, ['id'=>'registerForm', 'class'=>'fusion-login-form']) ?>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Email']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'EMAIL']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('password', ['type' => 'password', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Password']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('password', ['type' => 'password', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'PASSWORD']); ?>
         </div>
         <div class="col-sm-7 ">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('confirm_password',['type'=>'password','class'=>'form-control f-input', 'label'=>false, 'placeholder'=>'Confirm Password']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('confirm_password',['type'=>'password','class'=>'form-control f-input', 'label'=>false, 'placeholder'=>'CONFIRM PASSWORD']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <div class="g-recaptcha" data-sitekey="<?= $googleRecatpcha['site_key'] ?>"></div>
+        <div class="col-lg-8">
+            <div class="g-recaptcha" data-theme="dark" data-sitekey="<?= $googleRecatpcha['site_key'] ?>"></div>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
+        <div class="col-lg-8">
             <button class="btn btn-lg btn-default outer-btn" title="REGISTER">REGISTER</button>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     
     <div class="row">
-        <div class="col-sm-5 text-center">
+        <div class="col-lg-8"">
             <a title="Don't have an account? Register!"
-               href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']); ?>">I
-                already have an account? Login!</a>
+               href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'login']); ?>">I already have an account? Login</a>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>

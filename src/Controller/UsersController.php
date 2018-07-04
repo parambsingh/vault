@@ -30,7 +30,19 @@ class UsersController extends AppController {
         
         $memosTable = TableRegistry::get('Memos');
         $memos = $memosTable->find()->where(['Memos.user_id' => $this->Auth->user('id'), 'Memos.exported' => false])->hydrate(false)->all()->toArray();
-        $this->set('memos', $memos);
+        
+        $finalMemos = $memos;
+        
+        if (count($memos) < 12) {
+            for ($i = count($memos); $i < (12 - count($memos)); $i++) {
+                $finalMemos[] = [
+                    'thumb' => '/img/cropped-fav-192x192.png',
+                    'serial_no' => 0
+                ];
+            }
+        }
+        
+        $this->set('memos', $finalMemos);
         
     }
     
@@ -64,44 +76,42 @@ class UsersController extends AppController {
             return $this->redirect($this->Auth->redirectUrl());
         }
         
-        if (!$this->verifyRecatpcha($this->request->data)) {
-            $this->Flash->error(__('Incorrect Captcha.'));
-            return $this->redirect('register');
-        }
         
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
-            
             $user = $this->Users->patchEntity($user, $this->request->getData(), ['validate' => 'newUser']);
             
-            if ($this->Users->save($user)) {
-                
-                $options = [
-                    'template' => 'welcome',
-                    'to' => $user->email,
-                    'subject' => _('Welcome to ' . SITE_TITLE),
-                    'viewVars' => [
-                        'name' => $user->first_name,
-                        'email' => $user->email
-                    ]
-                ];
-                
-                $this->loadComponent('EmailManager');
-                $this->EmailManager->sendEmail($options);
-                
-                $this->Auth->setUser($user);
-                $this->Flash->success(__('You have successfully registered.'));
-                return $this->redirect($this->Auth->redirectUrl());
+            if (!$this->verifyRecatpcha($this->request->data)) {
+                $this->Flash->error(__('Incorrect Captcha.'));
             } else {
-                if (is_array($user->errors())) {
-                    foreach ($user->errors() as $errors) {
-                        foreach ($errors as $err) {
-                            $error = $err;
+                if ($this->Users->save($user)) {
+                    
+                    $options = [
+                        'template' => 'welcome',
+                        'to' => $user->email,
+                        'subject' => _('Welcome to ' . SITE_TITLE),
+                        'viewVars' => [
+                            'name' => $user->first_name,
+                            'email' => $user->email
+                        ]
+                    ];
+                    
+                    $this->loadComponent('EmailManager');
+                    $this->EmailManager->sendEmail($options);
+                    
+                    $this->Auth->setUser($user);
+                    $this->Flash->success(__('You have successfully registered.'));
+                    return $this->redirect($this->Auth->redirectUrl());
+                } else {
+                    if (is_array($user->errors())) {
+                        foreach ($user->errors() as $errors) {
+                            foreach ($errors as $err) {
+                                $error = $err;
+                            }
                         }
                     }
+                    $this->Flash->error(__($error));
                 }
-                $this->Flash->error(__($error));
-                return $this->redirect(['action' => 'register']);
             }
         }
         

@@ -1,17 +1,16 @@
 .ajax-file-upload-statusbar {
     border: 1px solid #eebc41;
     color: #ffffff;
-    background-color: #eebc41;
+    background-color: black;
     margin-top: 10px;
     width: 100%;
     margin-right: 10px;
-    margin: 5px;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    margin: 0px;
+   /* -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;*/
+    border-radius: 0px;
     padding: 5px 5px 5px 15px;
     float: left;
-
 }
 
 .ajax-file-upload-preview {
@@ -48,11 +47,14 @@
 }
 
 .ajax-file-upload-bar {
-    background-color: #0ba1b5;
-    width: 0;
-    height: 20px;
-    border-radius: 3px;
-    color: #FFFFFF;
+
+    background-color: #acfe01;
+    border-radius: 0px;
+    color: #000;
+    padding: 7px;
+    height: 0px;
+    font-size: 11px;
+    line-height: 0px;
 
 }
 

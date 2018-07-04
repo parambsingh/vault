@@ -5,19 +5,19 @@
     </div>
     <?= $this->Form->create(null, ['id' => 'resetPasswordForm', 'class' => 'fusion-login-form']) ?>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('password', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Password']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('password', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'PASSWORD']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
-            <?= $this->Form->control('confirm_password', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'Confirm Password']); ?>
+        <div class="col-lg-8">
+            <?= $this->Form->control('confirm_password', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'CONFIRM PASSWORD']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
     </div>
     <div class="row">
-        <div class="col-sm-5 mb-20">
+        <div class="col-lg-8">
             <button class="btn btn-lg btn-default outer-btn" title="Submit" id="resetPasswordBtn"><span
                     class="fusion-button-text">Submit</span></button>
         </div>
