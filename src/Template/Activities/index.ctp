@@ -1,11 +1,11 @@
 <?php $this->assign('title', __('Your Activity')); ?>
-<div class="row">
-    <div class="col-lg-1"><img src="<?= SITE_URL ?>/img/activity_heading.png" alt="RAIDA" title="Add Memos"
-                               style="margin-top: 100px;"></div>
-    <div class="col-lg-11">
+<div class="row heading-activity" >
+    <!--div class="col-lg-1"><img src="<?= SITE_URL ?>/img/activity_heading.png" alt="RAIDA" title="Add Memos"
+                               style="margin-top: 100px;"></div!-->
+    <div class="col-lg-11 col-md-10 col-sm-10 col-xs-12" style="padding-left:5%;">
         <div class="activities index large-9 medium-8 columns content">
-            <h3><?= __('Activities') ?></h3>
-            <table cellpadding="0" cellspacing="0" class="table" style="background-color: #eebc41; color: #ffffff; ">
+            <!--<h3><?= __('Activities') ?></h3!-->
+            <table cellpadding="0" cellspacing="0" class="table" style="color: #ffffff; ">
                 <tbody>
                 <?php foreach ($activities as $activity): ?>
                     <tr>
@@ -16,7 +16,7 @@
                 </tbody>
             </table>
             <div class="paginator">
-                <ul class="pagination">
+                <ul class="pagination pg-black">
                     <?= $this->Paginator->first('<< ' . __('first')) ?>
                     <?= $this->Paginator->prev('< ' . __('previous')) ?>
                     <?= $this->Paginator->numbers() ?>

@@ -1,8 +1,5 @@
 <div class="main-menu menu" >
-    <style type="text/css">
-        .active a{ color:#eebc41 !important; font-weight: bold;}
-    </style>
-    <nav class="nav-menu">
+      <nav class="nav-menu">
         <ul class="menu">
 		 <li  class="add-memos menu-item dash-ico <?= $this->request->controller == 'Users' && $this->request->action == "dashboard" ? 'active' : '' ?>">
              <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'dashboard']); ?>">Dashboard</a>

@@ -8,6 +8,12 @@
     <?= $this->Form->create($user, ['id'=>'registerForm', 'class'=>'fusion-login-form']) ?>
     <div class="row">
         <div class="col-lg-8">
+            <?= $this->Form->control('name', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'FULL NAME']); ?>
+        </div>
+        <div class="col-sm-7">&nbsp;</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
             <?= $this->Form->control('email', ['type' => 'text', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'EMAIL']); ?>
         </div>
         <div class="col-sm-7">&nbsp;</div>
@@ -15,7 +21,7 @@
     
     <div class="row">
         <div class="col-lg-8">
-            <?= $this->Form->control('password', ['type' => 'password', 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'PASSWORD']); ?>
+            <?= $this->Form->control('password', ['type' => 'password', 'id'=>"password", 'class' => 'form-control f-input', 'label' => false, 'placeholder' => 'PASSWORD']); ?>
         </div>
         <div class="col-sm-7 ">&nbsp;</div>
     </div>
@@ -55,20 +61,27 @@
         
         $("#registerForm").validate({
             rules: {
+                name: {
+                    required: true
+                },
                 email: {
                     required: true,
                     email: true,
                     remote: SITE_URL+'/users/isUniqueEmail'
                 },
                 password: {
-                    required: true
+                    required: true,
                 },
                 confirm_password: {
-                    required: true
+                    required: true,
+                    equalTo: "#password"
                 }
                 
             },
             messages: {
+                name: {
+                    required: "Please enter your name"
+                },
                 email: {
                     required: "Please enter email.",
                     email: "Please enter valid email.",
@@ -78,7 +91,8 @@
                     required: "Please enter password."
                 },
                 confirm_password: {
-                    required: "Please confirm password."
+                    required: "Please confirm password.",
+                    equalTo: "Password does not match"
                 },
                 
             }

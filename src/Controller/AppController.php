@@ -76,7 +76,7 @@ class AppController extends Controller {
             $this->set('memo_count', $memo_count);
     
             if(empty($this->Cookie->read('raidaEcho'))){
-                $this->echoRiada();
+              //  $this->echoRiada();
             }
     
             $this->set('raidaStatus', $this->Cookie->read('raidaEcho'));

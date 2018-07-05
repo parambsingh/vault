@@ -22,37 +22,37 @@ class ActivityTemplatesSeed extends AbstractSeed {
             [
                 'activity_type' => 'Added Celebrium',
                 'template' => '<b>{MemoName}</b> Celebrium added successfully at {time}',
-                'color' => '#06CA6F',
+                'color' => '#bbeaa1',
             ],
             [
                 'activity_type' => 'Added Memo',
                 'template' => '<b>{MemoName}</b> Memo added successfully at {time}',
-                'color' => '#06CA6F'
+                'color' => '#bbeaa1'
             ],
             [
                 'activity_type' => 'Added Celebrium Failed',
                 'template' => 'You tried to add the <b>{MemoName}</b> Celebrium at {time}, but failed',
-                'color' => '#F01D43'
+                'color' => '#eaa1a1'
             ],
             [
                 'activity_type' => 'Added Memo Failed',
                 'template' => 'You tried to add the <b>{MemoName}</b> Memo at {time}, but failed',
-                'color' => '#F01D43'
+                'color' => '#ffffff'
             ],
             [
                 'activity_type' => 'Added Celebrium Already Exists',
                 'template' => '<b>{MemoName}</b> Celebrium has already been added',
-                'color' => '#3366CE'
+                'color' => '#ffffff'
             ],
             [
                 'activity_type' => 'Added Memo Already Exists',
                 'template' => '<b>{MemoName}</b> Memo has already been added',
-                'color' => '#3366CE'
+                'color' => '#ffffff'
             ],
             [
                 'activity_type' => 'Memo Backed up',
                 'template' => '<b>{MemoName}</b> Memo has already been backed up at {time}',
-                'color' => '#3366CE'
+                'color' => '#ffffff'
             ],
             [
                 'activity_type' => 'Memo Exported',

@@ -31,10 +31,10 @@ a:focus, a:hover {
 .ui-navbar {
 	display: none;
 }
-.inner-header {
+/*.inner-header {
 	display: block;
 	padding-right: 31px;
-}
+}*/
 
 
 body {
@@ -44,6 +44,68 @@ body {
 	background-position: center center;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+.btn-default.focus, .btn-default:focus {
+    color: #eebc41;
+    background-color: transparent;
+    border-color: #8c8c8c;
+}
+
+
+.modal-footer {
+    padding: 15px;
+    text-align: right;
+    border-top: none;
+    background: black;
+}
+
+b, strong {
+    font-weight: bold;
+    text-transform: uppercase;
+	color:#eebc41!important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #797979;
+}
+.heading-story {
+	background-image: url("../img/story.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+
+.heading-activity  {
+	background-image: url("../img/activity_heading.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+
+.heading-exp {
+	background-image: url("../img/archive.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+
+.heading-dashboard {
+	background-image: url("../img/digital-memo.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+}
+.heading-add {
+	background-image: url("../img/add-memos.png");
+	background-position: left bottom;
+	background-repeat: no-repeat;
+
+}
+.heading-bak {
+    background-image: url("../img/backup-memos.png");
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    min-height: 400px;
 }
 .inner_body {
 	background-color: #000;
@@ -252,18 +314,12 @@ label.error {
 	border-color: #000000;
 	color: #000000;
 	text-decoration: none;
-	width: 100%;
-	-webkit-transition: all .3s;
-	transition: all .3s;
 	font-family: 'Ridley Grotesk';
 	font-weight: 700;
 	letter-spacing: 0px;
-	padding: 10px;
 	line-height: 16px;
 	font-size: 16px;
 	border-radius: 0;
-	display: inline-block;
-	position: relative;
 	margin-bottom: 15px;
 	text-transform: uppercase;
 }
@@ -273,29 +329,28 @@ label.error {
 	text-transform: uppercase;
 	color: #ffffff;
 	text-decoration: none;
-	width: 100%;
-	-webkit-transition: all .3s;
-	transition: all .3s;
 	font-family: 'Ridley Grotesk';
 	font-weight: 700;
 	letter-spacing: 0px;
-	padding: 10px;
+
 	line-height: 16px;
 	font-size: 16px;
 	border-radius: 0;
-	display: inline-block;
-	position: relative;/*margin-bottom: 15px;*/
 }
 /*.add-memo-btn{
     letter-spacing: 1px !important;
 }*/
-
+.wallet_m {
+background:#000;
+padding:20px;
+}
 .shop-memo-btn {
 	margin: 20px;
 	text-align: center;
 }
 .memo-bank-section {
 	padding: 20px;
+	margin-top:10px;
 }
 /*.inner-logo {
     margin: 20px 0;
@@ -311,8 +366,8 @@ label.error {
 	text-transform: uppercase;
 }
 .main-menu {
-	text-align: right;
 	margin-bottom:20px;
+	text-align:center;
 }
 .main-menu > .nav-menu li {
 	display: inline-block;
@@ -340,8 +395,8 @@ label.error {
 	display: none
 }
 ul.menu {
-	margin: 10px 10px;
-	text-alignt: right;
+	padding: 10px 10px;
+	/*text-alignt: right;*/
 }
 .customer-support {
 	background: #eebc41;
@@ -360,10 +415,27 @@ ul.menu {
 	text-align: center;
 }
 .memo-img {
-	position: relative
-    margin-bottom: 20px;
+    position: relative;
+    margin-left: 0px;
+    border-collapse: collapse;
+	margin-bottom:10px;
 }
+.container-box {
+    min-height: 303px;
+    padding: auto;
+    border: 3px solid transparent;
+    background: black;
+    margin-left: 33px;
+
 }
+.container-box:hover {
+    min-height: 303px;
+	/*background: url(https://www.celebrium.com/wp-content/uploads/2018/02/collect_memo.png) no-repeat 50%;*/
+	background: black;
+    border: 3px solid #eebc41;
+	margin-left: 33px;
+}
+
 .memo-img:hover .mouse-over-box:hover {
 	opacity: 1;
 	-webkit-transform: translateX(0);
@@ -456,11 +528,186 @@ ul.menu {
 }
 
 
+/*PAGINATION*/
+
+
+
+.pagination {
+
+	display:inline-block;
+
+	padding-left:0;
+
+	margin:20px 0;
+
+	border-radius:4px
+
+}
+
+.pagination>li {
+
+	display:inline
+
+}
+
+.pagination>li>a, .pagination>li>span {
+
+	position:relative;
+
+	float:left;
+
+	padding:6px 12px;
+
+	margin-left:-1px;
+
+	line-height:1.42857143;
+
+	color:#eebc41;
+
+	text-decoration:none;
+
+	background-color:#000;
+
+	border:1px solid #eebc41
+
+}
+
+.pagination>li:first-child>a, .pagination>li:first-child>span {
+
+	margin-left:0;
+
+	border-top-left-radius:4px;
+
+	border-bottom-left-radius:4px
+
+}
+
+.pagination>li:last-child>a, .pagination>li:last-child>span {
+
+	border-top-right-radius:4px;
+
+	border-bottom-right-radius:4px
+
+}
+
+.pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover {
+
+	z-index:2;
+
+	color:#23527c;
+
+	background-color:#eee;
+
+	border-color:#ddd
+
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+
+	z-index:3;
+
+	color:#000!important;
+
+	cursor:default;
+
+	background-color:#eebc41;
+
+	border-color:#eebc41
+
+}
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+
+	color:#fff;
+
+	cursor:not-allowed;
+
+	background-color:#383200;
+
+	border-color:#ddd
+
+}
+
+.pagination-lg>li>a, .pagination-lg>li>span {
+
+	padding:10px 16px;
+
+	font-size:18px;
+
+	line-height:1.3333333
+
+}
+
+.pagination-lg>li:first-child>a, .pagination-lg>li:first-child>span {
+
+	border-top-left-radius:6px;
+
+	border-bottom-left-radius:6px
+
+}
+
+.pagination-lg>li:last-child>a, .pagination-lg>li:last-child>span {
+
+	border-top-right-radius:6px;
+
+	border-bottom-right-radius:6px
+
+}
+
+.pagination-sm>li>a, .pagination-sm>li>span {
+
+	padding:5px 10px;
+
+	font-size:12px;
+
+	line-height:1.5
+
+}
+
+.pagination-sm>li:first-child>a, .pagination-sm>li:first-child>span {
+
+	border-top-left-radius:3px;
+
+	border-bottom-left-radius:3px
+
+}
+
+.pagination-sm>li:last-child>a, .pagination-sm>li:last-child>span {
+
+	border-top-right-radius:3px;
+
+	border-bottom-right-radius:3px
+
+}
+.top-buttons {
+text-align:right;
+}
+
 
 /*MEDIA QUERY*/
 
 
 @media (max-width: 768px) {
+.container-box {
+    min-height: 100%;
+    padding: auto;
+    border: 3px solid transparent;
+    background: black;
+    margin-left: 33px;
+
+}
+.container-box:hover {
+    min-height: 100%;
+	/*background: url(https://www.celebrium.com/wp-content/uploads/2018/02/collect_memo.png) no-repeat 50%;*/
+	background: black;
+    border: 3px solid #eebc41;
+	margin-left: 33px;
+}
+
+.top-buttons {
+text-align:center;
+}
+
 .ui-navbar {
 	display: block;
 	position: fixed;
@@ -472,6 +719,14 @@ ul.menu {
 	display: none;
 }
 }
+
+@media (max-width: 480px) {
+.inner-btn {
+width:100%;
+}
+}
+
+
 
 /*
 @media (max-width: 1024px) {

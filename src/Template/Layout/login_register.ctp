@@ -3,7 +3,7 @@
     <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
+    <title> Celebrium Memos™ Vault | 
     <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
@@ -48,20 +48,13 @@
         </div>
   </div>
       <div class="row">
-    <div class="col-lg-1">
-
-
-        </div>
-		
-		<div class="col-lg-5">
-
-
+		<div class="col-lg-4 col-md-5 col-sm-8 col-xs-12 col-lg-offset-1  text-center">
           <div class="outer-logo"> <a href="<?= SITE_URL ?>"> <img src="<?= SITE_URL ?>/img/memo_vault_1.0_logo.png" alt="<?= SITE_TITLE ?>"
                          title="<?= SITE_TITLE ?>"/> </a> </div>
 
 
         </div>
-    <div class="col-lg-6">
+    <div class="col-lg-6 col-md-10 col-sm-10 col-xs-12 col-lg-offset-1">
           <?= $this->fetch('content') ?>
         </div>
   </div>

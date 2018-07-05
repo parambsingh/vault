@@ -41,9 +41,8 @@ class CelebriumComponent extends Component {
         $tmp = json_decode($resultFromAPI, true);
         
         $tmp['error'] = $error;
-        
+
         return ($error) ? $tmp : $this->fetchTemplate($cc['sn'], $tmp['message']);
-        
     }
     
     public function fetchTemplate($sn, $message) {

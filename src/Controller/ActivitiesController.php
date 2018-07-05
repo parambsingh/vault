@@ -22,7 +22,7 @@ class ActivitiesController extends AppController {
         $this->paginate = [
             'contain' => ['Users', 'ActivityTemplates']
         ];
-        $activities = $this->paginate($this->Activities->find()->where(['Activities.user_id' => $this->Auth->user('id')]));
+        $activities = $this->paginate($this->Activities->find()->where(['Activities.user_id' => $this->Auth->user('id')])->order(['Activities.created' => 'DESC']));
         
         $this->set(compact('activities'));
     }
